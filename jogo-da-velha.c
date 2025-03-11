@@ -26,7 +26,7 @@ void estatisticas(){
     printf("*******************************\n");
     printf("*TOTAL DE PARTIDAS: %d        *\n", partidas);
     printf("*VITÓRIAS JOGADOR X: %d       *\n", vx);
-    printf("*VITÓRIAS JOGADOR Y: %d       *\n", vo);
+    printf("*VITÓRIAS JOGADOR O: %d       *\n", vo);
     printf("*EMPATES: %d                  *\n", empates);
     printf("*******************************\n");
 }
@@ -83,6 +83,8 @@ void jogar(){
             s = 'X';
         }
         
+        jogo();
+        
         coordenadas();
         
         while(matriz[i-1][j-1]){
@@ -93,13 +95,14 @@ void jogar(){
         
         matriz[i-1][j-1] = s;
 
-        jogo();
-
         jogada++;
         
         if(jogada > 4){
             if(verificar_vitoria()){
                 char vencedor = verificar_vitoria();
+                
+                system("clear");
+                jogo();
 
                 if (vencedor == 'X'){
                     printf("Vitória do Jogador X!\n");
@@ -117,11 +120,9 @@ void jogar(){
                     empates++;
                     break;
                 }
+                
             }
-        
         }
-
-        sleep(2);
 
     }while(jogada < 10);
     
@@ -140,6 +141,13 @@ void main(){
         switch(op){
             case 1:
                 jogar();
+                
+                for(i=0; i<3; i++){
+                    for(j=0; j<3; j++){
+                        matriz[i][j] = NULL;
+                    }
+                }
+                
                 break;
             case 2:
                 estatisticas();
